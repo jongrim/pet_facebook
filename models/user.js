@@ -2,7 +2,7 @@ module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define("User", {
       first_name: DataTypes.STRING,
       last_name: DataTypes.STRING,
-      birthday: DataTypes.DATETIME,
+      birthday: DataTypes.DATE,
       username: DataTypes.STRING,
       password: DataTypes.STRING,
       about: DataTypes.TEXT,
@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
     User.associate = function(models) {
       // Associating User with Posts
       // When an User is deleted, also delete any associated Posts
-      User.hasMany(models.Post, {
+      User.hasMany(models.Pet, {
         onDelete: "cascade"
       });
     };
