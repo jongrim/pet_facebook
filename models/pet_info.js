@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
       pet_birthday: DataTypes.DATETIME,
       pet_species: DataTypes.STRING,
       pet_breed: DataTypes.STRING,
-      pet_about: DataTypes.STRING,
+      pet_about: DataTypes.TEXT,
     });
   
     Pet.associate = function(models) {

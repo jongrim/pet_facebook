@@ -5,9 +5,10 @@ module.exports = function(sequelize, DataTypes) {
       birthday: DataTypes.DATETIME,
       username: DataTypes.STRING,
       password: DataTypes.STRING,
-      about: DataTypes.STRING,
+      about: DataTypes.TEXT,
     },{
-        paranoid: true
+        paranoid: true,
+        forceTableName: "User"
     });
   
     User.associate = function(models) {
