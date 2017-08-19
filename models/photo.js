@@ -14,18 +14,18 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  Photo.associate(function(models) {
+  Photo.associate = function(models) {
     Photo.belongsTo(models.User, {
       foreignKey: {
         allowNull: false
       }
     });
-    Photo.hasOne(models.Pet, {
+    Photo.hasMany(models.Post, {
       foreignKey: {
         allowNull: true
       }
     });
-  });
+  };
 
   return Photo;
 };

@@ -10,7 +10,7 @@ var users = require('./routes/users');
 
 var app = express();
 
-var db = require("./models");
+var db = require('./models');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -47,10 +47,6 @@ app.use(function(err, req, res, next) {
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: true }).then(function() {
-  app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-  });
-});
+db.sequelize.sync({ force: true });
 
 module.exports = app;

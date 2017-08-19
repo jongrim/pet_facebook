@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes) {
       birthday: DataTypes.DATE,
       username: DataTypes.STRING,
       email: {
-        type: DataType.STRING,
+        type: DataTypes.STRING,
         validate: {
           isEmail: true
         }
@@ -31,6 +31,11 @@ module.exports = function(sequelize, DataTypes) {
     });
     User.hasMany(models.Photo, {
       onDelete: 'cascade'
+    });
+    User.hasMany(models.Comment, {
+      foreignKey: {
+        allowNull: true
+      }
     });
   };
 
