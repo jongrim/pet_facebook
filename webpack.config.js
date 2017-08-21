@@ -8,7 +8,7 @@ const extractSass = new ExtractTextPlugin({
 });
 
 module.exports = {
-  entry: ['./src/index.js', './public/scss/style.scss'],
+  entry: ['./src/js/index.js', './src/scss/style.scss'],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'public/dist')
