@@ -1,5 +1,7 @@
+const bcrypt = require('bcryptjs');
+
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define(
+  const User = sequelize.define(
     'User',
     {
       first_name: DataTypes.STRING,
@@ -12,7 +14,13 @@ module.exports = function(sequelize, DataTypes) {
           isEmail: true
         }
       },
-      password: DataTypes.STRING,
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        set(password) {
+          this.setDataValue('password', bcrypt.hashSync(password, 12, null));
+        }
+      },
       about: DataTypes.TEXT
     },
     {
@@ -37,6 +45,10 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true
       }
     });
+  };
+
+  User.prototype.validatePassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
   };
 
   return User;
