@@ -5,7 +5,6 @@ const path = require('path');
 const fs = require('fs');
 const User = require('../models').User;
 const Photo = require('../models').Photo;
-const db = require("../models");
 
 // tells multer how to store images
 const storage = multer.diskStorage({
@@ -23,14 +22,13 @@ const upload = multer({ storage: storage });
 
 module.exports = function (app, passport) {
     app.get('/photos', function (req, res) {
-        console.log("!!!!!!!!");
-        console.log(req);
         if (req.isAuthenticated()) {
-            db.Photo.findAll({
+            Photo.findAll({
                 where: {
-                  UserId: req.user.dataValues.id
+                  UserId: req.user.dataValues.id,
+                  isPet: true
                 },
-                include: [db.User]
+                include: [User]
               }).then(function (data) {
                 var hbsObject = { "Photo": data };
                 res.render('photos', hbsObject);

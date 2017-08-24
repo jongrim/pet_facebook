@@ -7,15 +7,10 @@
         {{#each Photo}}
         <img src={{this.img_url}} alt="PET ID TO COME" style="width:15vh;">
         {{/each}}
-        <form action="#">
-          <div id="neededItems">
-          </div>
-        </form>
-
       </div>
       <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="post">
         <input type="file" name="userFile" />
-        <input type="submit" value="Upload File" name="submit" class="btn btn-warning btn-lg">
+        <input type="submit" value="Upload Pet Photo" name="submit" class="btn btn-warning btn-lg">
       </form>
       <hr>
       <p>Or go <a href="/">home</a>.</p>

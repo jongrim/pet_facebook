@@ -1,3 +1,6 @@
+const User = require('../models').User;
+const Photo = require('../models').Photo;
+
 module.exports = function(app, passport) {
   app.get('/', function(req, res) {
     if (req.isAuthenticated()) {
@@ -42,7 +45,19 @@ module.exports = function(app, passport) {
   );
 
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile', { user: req.user });
+    if (req.isAuthenticated()) {
+      Photo.findAll({
+          where: {
+            UserId: req.user.dataValues.id,
+            isPet: false
+          },
+          include: [User]
+        }).then(function (data) {
+          res.render('profile', { user: req.user, "ProfilePic": data });
+        });
+  } else {
+      res.render('index', { message: req.flash('loginMessage')[0] });
+  }
   });
 
   app.get('/logout', function(req, res) {
