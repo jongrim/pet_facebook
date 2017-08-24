@@ -1,8 +1,10 @@
 const cloudinary = require('cloudinary');
 const cloudinaryConfig = require('../config/cloudinary');
-var multer = require('multer');
+const multer = require('multer');
 const path = require('path');
-var fs = require('fs');
+const fs = require('fs');
+const User = require('../models').User;
+const Photo = require('../models').Photo;
 
 // tells multer how to store images
 const storage = multer.diskStorage({
@@ -21,6 +23,8 @@ const upload = multer({ storage: storage });
 module.exports = function (app, passport) {
     app.get('/photos', function (req, res) {
         if (req.isAuthenticated()) {
+            console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            console.log(req.user.dataValues.id);
             res.render('photos');
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
@@ -29,17 +33,27 @@ module.exports = function (app, passport) {
 
 //!!!!Resubmitting the page post the image to cloudinary again!!!!!!
     app.post('/photos', upload.single('userFile'), function (req, res, next) {
-        cloudinary.uploader.upload(req.file.path, result => {
-            console.log(result);
-            console.log('Uploaded ' + req.file.path.replace(/^.*[\\\/]/, '') + " to clousinary.");
-            fs.unlink(req.file.path, function(error) {
-                if (error) {
-                    throw error;
-                }
-                console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
-            });
-          });
-          res.redirect('profile');
+        if (req.isAuthenticated()) {
+            cloudinary.uploader.upload(req.file.path, result => {
+                console.log(result);
+                Photo.create({
+                    isPet: true,
+                    likes: 1,
+                    img_url: result.secure_url,
+                    PetID: 0,
+                    UserId: req.user.dataValues.id
+                  })
+                fs.unlink(req.file.path, function(error) {
+                    if (error) {
+                        throw error;
+                    }
+                    console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
+                });
+              });
+              res.redirect('profile');
+        } else {
+            res.render('index', { message: req.flash('loginMessage')[0] });
+        } 
     })
 };
 
