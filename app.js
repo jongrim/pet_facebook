@@ -1,16 +1,18 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+require('dotenv').config();
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const session = require('express-session');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const passport = require('passport');
+const flash = require('connect-flash');
 
-var app = express();
+const app = express();
 
-var db = require('./models');
+const db = require('./models');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,8 +26,21 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+// session setup
+require('./config/passport')(passport);
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false, // TODO need to research to determine
+    saveUninitialized: false // do not save session unless a modification occurs
+    // Need to research a session-store option - TODO
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
+require('./routes/html-routes.js')(app, passport);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -47,6 +62,10 @@ app.use(function(err, req, res, next) {
 
 // Syncing our sequelize models and then starting our Express app
 // =============================================================
-db.sequelize.sync({ force: true });
+if (process.env.NODE_ENV === 'development') {
+  db.sequelize.sync({ force: true });
+} else {
+  db.sequelize.sync();
+}
 
 module.exports = app;
