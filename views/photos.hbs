@@ -3,6 +3,16 @@
     <div class="col"></div>
     <div class="col-9">
       <h1><span class="fa fa-upload"></span> Photos</h1>
+      <div class="col s12 m6">
+        {{#each Photo}}
+        <img src={{this.img_url}} alt="PET ID TO COME" style="width:15vh;">
+        {{/each}}
+        <form action="#">
+          <div id="neededItems">
+          </div>
+        </form>
+
+      </div>
       <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="post">
         <input type="file" name="userFile" />
         <input type="submit" value="Upload File" name="submit" class="btn btn-warning btn-lg">
