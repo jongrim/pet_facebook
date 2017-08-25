@@ -1,18 +1,19 @@
+const User = require('../models').User;
+const Photo = require('../models').Photo;
+
 module.exports = function(app, passport) {
-  app.get('/', function(req, res) {
-    if (req.isAuthenticated()) {
-      res.redirect('/profile');
-    } else {
-      res.render('index');
-    }
+  app.get('/', redirectToFeedIfSignedIn, function(req, res) {
+    res.render('index', { title: 'Petster' });
   });
 
-  app.get('/login', function(req, res) {
-    if (req.isAuthenticated()) {
-      res.redirect('/profile');
-    } else {
-      res.render('login', { message: req.flash('loginMessage')[0] });
-    }
+  /**
+   * LOGIN ROUTES
+   */
+  app.get('/login', redirectToFeedIfSignedIn, function(req, res) {
+    res.render('login', {
+      title: 'Login',
+      message: req.flash('loginMessage')[0]
+    });
   });
 
   app.post(
@@ -24,11 +25,17 @@ module.exports = function(app, passport) {
     })
   );
 
+  /**
+   * SIGNUP ROUTES
+   */
   app.get('/signup', function(req, res) {
     if (req.isAuthenticated()) {
       res.redirect('/');
     } else {
-      res.render('signup', { message: req.flash('signupMessage')[0] });
+      res.render('signup', {
+        title: 'Sign Up',
+        message: req.flash('signupMessage')[0]
+      });
     }
   });
 
@@ -42,8 +49,28 @@ module.exports = function(app, passport) {
   );
 
   app.get('/profile', isLoggedIn, function(req, res) {
-    res.render('profile', { user: req.user });
+    if (req.isAuthenticated()) {
+      Photo.findAll({
+          where: {
+            UserId: req.user.dataValues.id,
+            isPet: false
+          },
+          include: [User]
+        }).then(function (data) {
+          res.render('profile', { user: req.user, "ProfilePic": data });
+        });
+  } else {
+      res.render('index', { message: req.flash('loginMessage')[0] });
   });
+
+  app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
+    res.render('feed', { title: 'Feed', user: req.user });
+  });
+    
+//  I left this in because i think we need to take the title: profile to the one above
+//   app.get('/profile', redirectToLoginIfNotSignedIn, function(req, res) {
+//     res.render('profile', { title: 'Profile', user: req.user });
+//   });
 
   app.get('/logout', function(req, res) {
     req.logout();
@@ -51,10 +78,16 @@ module.exports = function(app, passport) {
   });
 };
 
-function isLoggedIn(req, res, next) {
+function redirectToLoginIfNotSignedIn(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
+  res.redirect('/login');
+}
 
-  res.redirect('/');
+function redirectToFeedIfSignedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    res.redirect('/feed');
+  }
+  return next();
 }

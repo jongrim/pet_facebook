@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-9">
+      <h1><span class="fa fa-upload"></span> Posts</h1>
+      <div class="col s12 m6">
+        {{#each Post}}
+        <ul>
+            <ul>User Id: {{this.UserId}}</ul>
+            <ul>Content: {{this.textContent}}</ul>
+            <ul>Likes: {{this.likes}}</ul>
+        </ul>
+        {{/each}}
+      </div>
+      <hr>
+      <p>Or go <a href="/">home</a>.</p>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
