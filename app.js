@@ -15,6 +15,8 @@ const app = express();
 const db = require('./models');
 
 // view engine setup
+const hbs = require('hbs');
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
