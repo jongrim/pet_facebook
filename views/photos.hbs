@@ -1,0 +1,20 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-9">
+      <h1><span class="fa fa-upload"></span> Photos</h1>
+      <div class="col s12 m6">
+        {{#each Photo}}
+        <img src={{this.img_url}} alt="PET ID TO COME" style="width:15vh;">
+        {{/each}}
+      </div>
+      <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="post">
+        <input type="file" name="userFile" />
+        <input type="submit" value="Upload Pet Photo" name="submit" class="btn btn-warning btn-lg">
+      </form>
+      <hr>
+      <p>Or go <a href="/">home</a>.</p>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
