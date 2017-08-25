@@ -1,2 +1,8 @@
 @import "custom";
 @import "~bootstrap/scss/bootstrap";
+
+@include media-breakpoint-down(sm) {
+  .hidden-sm-down {
+    display: none;
+  }
+}
