@@ -48,29 +48,30 @@ module.exports = function(app, passport) {
     })
   );
 
-  app.get('/profile', isLoggedIn, function(req, res) {
-    if (req.isAuthenticated()) {
-      Photo.findAll({
-          where: {
-            UserId: req.user.dataValues.id,
-            isPet: false
-          },
-          include: [User]
-        }).then(function (data) {
-          res.render('profile', { user: req.user, "ProfilePic": data });
-        });
-  } else {
-      res.render('index', { message: req.flash('loginMessage')[0] });
-  });
+  //  I left this in because i think we need to take the title: profile to the one above
+  // app.get('/profile', isLoggedIn, function(req, res) {
+  //   if (req.isAuthenticated()) {
+  //     Photo.findAll({
+  //         where: {
+  //           UserId: req.user.dataValues.id,
+  //           isPet: false
+  //         },
+  //         include: [User]
+  //       }).then(function (data) {
+  //         res.render('profile', { user: req.user, "ProfilePic": data });
+  //       });
+  // } else {
+  //     res.render('index', { message: req.flash('loginMessage')[0] });
+  // }
 
   app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
     res.render('feed', { title: 'Feed', user: req.user });
   });
     
-//  I left this in because i think we need to take the title: profile to the one above
-//   app.get('/profile', redirectToLoginIfNotSignedIn, function(req, res) {
-//     res.render('profile', { title: 'Profile', user: req.user });
-//   });
+
+  app.get('/profile', redirectToLoginIfNotSignedIn, function(req, res) {
+    res.render('profile', { title: 'Profile', user: req.user });
+  });
 
   app.get('/logout', function(req, res) {
     req.logout();
