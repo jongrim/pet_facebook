@@ -33,6 +33,15 @@ module.exports = {
               loader: 'css-loader'
             },
             {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function() {
+                  // post css plugins, can be exported to postcss.config.js
+                  return [require('precss'), require('autoprefixer')];
+                }
+              }
+            },
+            {
               loader: 'sass-loader'
             }
           ]
