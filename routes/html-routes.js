@@ -1,15 +1,15 @@
 const User = require('../models').User;
 const Photo = require('../models').Photo;
 
-module.exports = function(app, passport) {
-  app.get('/', redirectToFeedIfSignedIn, function(req, res) {
+module.exports = function (app, passport) {
+  app.get('/', redirectToFeedIfSignedIn, function (req, res) {
     res.render('index', { title: 'Petster' });
   });
 
   /**
    * LOGIN ROUTES
    */
-  app.get('/login', redirectToFeedIfSignedIn, function(req, res) {
+  app.get('/login', redirectToFeedIfSignedIn, function (req, res) {
     res.render('login', {
       title: 'Login',
       message: req.flash('loginMessage')[0]
@@ -28,7 +28,7 @@ module.exports = function(app, passport) {
   /**
    * SIGNUP ROUTES
    */
-  app.get('/signup', function(req, res) {
+  app.get('/signup', function (req, res) {
     if (req.isAuthenticated()) {
       res.redirect('/');
     } else {
@@ -64,16 +64,24 @@ module.exports = function(app, passport) {
   //     res.render('index', { message: req.flash('loginMessage')[0] });
   // }
 
-  app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
-    res.render('feed', { title: 'Feed', user: req.user });
-  });
-    
+  // app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
+  //   res.render('feed', { title: 'Feed', user: req.user });
+  // });
 
-  app.get('/profile', redirectToLoginIfNotSignedIn, function(req, res) {
-    res.render('profile', { title: 'Profile', user: req.user });
+
+  app.get('/profile', redirectToLoginIfNotSignedIn, function (req, res) {
+    Photo.findAll({
+      where: {
+        UserId: req.user.dataValues.id,
+        isPet: true
+      },
+      include: [User]
+    }).then(function (data) {
+      res.render('profile', { title: 'Profile', user: req.user, Photo: data });
+    });
   });
 
-  app.get('/logout', function(req, res) {
+  app.get('/logout', function (req, res) {
     req.logout();
     res.redirect('/');
   });

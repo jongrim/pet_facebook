@@ -1,7 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
   const Pet = sequelize.define('Pet', {
     pet_name: DataTypes.STRING,
-    pet_birthday: DataTypes.DATE,
+    // pet_birthday: DataTypes.DATE,
     pet_species: DataTypes.STRING,
     pet_breed: DataTypes.STRING,
     pet_about: DataTypes.TEXT

@@ -5,7 +5,7 @@
       <h1><span class="fa fa-upload"></span> Photos</h1>
       <div class="col s12 m6">
         {{#each Photo}}
-        <img src={{this.img_url}} alt="PET ID TO COME" style="width:15vh;">
+          <img src={{this.img_url}} alt="PET NAME TO COME" style="width:15vh;">
         {{/each}}
       </div>
       <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="post">

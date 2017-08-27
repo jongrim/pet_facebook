@@ -2,20 +2,20 @@ const User = require('../models').User;
 const Post = require('../models').Post;
 
 module.exports = function (app, passport) {
-    app.get('/posts', function (req, res) {
+    app.get('/feed', function (req, res) {
         if (req.isAuthenticated()) {
             Post.findAll({
                 include: [User]
               }).then(function (data) {
                 var hbsObject = { "Post": data };
-                res.render('posts', hbsObject);
+                res.render('feed', hbsObject);
               });
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
         }
     });
 
-    app.post('/posts', function (req, res) {
+    app.post('/feed', function (req, res) {
         if (req.isAuthenticated()) {
                 Post.create({
                     textContent: req.body.postBody,
