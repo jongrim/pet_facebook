@@ -1,0 +1,26 @@
+{{> nav}}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+        <form id="newPet" action="/pets" method="post">
+          <label for="pet_name">What is your pets name?</label>
+          <input name="pet_name" placeholder="Pet Name" class="form-control" rows="6" id="pet_name"></input>
+          <br /><label for="pet_species">What species is your pet?</label>
+          <input name="pet_species" placeholder="Dog, Cat, Bird, etc" class="form-control" rows="6" id="pet_species"></input>
+          <br />
+          <label for="pet_breed">What breed is your pet?</label>
+          <input name="pet_breed" placeholder="Bulldog, Bearded Dragon, Scarlet Macaw" class="form-control" rows="6" id="pet_breed"></input>
+          <br />
+          <form id="submitPost" action="/posts" method="post">
+            <label for="pet_about">Talk about your pet:</label>
+            <textarea name="pet_about" placeholder="Talk about your pet. What do they like? What dont they like? What color are they?"
+              class="form-control" rows="6" id="pet_about"></textarea>
+            <br />
+            <button type="submit" name="button" value="submit" class="btn btn-warning submit btn-sm">Submit Post</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

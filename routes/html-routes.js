@@ -1,5 +1,6 @@
 const User = require('../models').User;
 const Photo = require('../models').Photo;
+const Pet = require('../models').Pet;
 
 module.exports = function (app, passport) {
   app.get('/', redirectToFeedIfSignedIn, function (req, res) {
@@ -70,14 +71,13 @@ module.exports = function (app, passport) {
 
 
   app.get('/profile', redirectToLoginIfNotSignedIn, function (req, res) {
-    Photo.findAll({
+     User.findAll({
       where: {
-        UserId: req.user.dataValues.id,
-        isPet: true
+        id: req.user.dataValues.id
       },
-      include: [User]
+      include: [Pet, Photo]
     }).then(function (data) {
-      res.render('profile', { title: 'Profile', user: req.user, Photo: data });
+      res.render('profile', { user: req.user, Photo: data[0].Photos, Pet: data[0].Pets});
     });
   });
 

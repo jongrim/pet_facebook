@@ -12,6 +12,12 @@
         <p><strong>id:</strong> {{user.id}}</p> --}} {{!--
         <h3><span></span> {{user.first_name}} {{user.last_name}}</h3> --}}
         <p><strong>Email:</strong> {{user.email}}</p>
+        <form action="/updateProfile" method="get">
+          <button name="updateProfile" type="submit" class="btn btn-warning btn-sm">Edit Profile</button>
+        </form>
+        <form action="/pets" method="get">
+          <button name="pets" type="submit" class="btn btn-warning btn-sm">Add Pet</button>
+        </form>
         <form action="/photos" method="get">
           <button name="photos" type="submit" class="btn btn-warning btn-sm">Upload Pet Photo</button>
         </form>
@@ -19,8 +25,7 @@
     </div>
     <div class="col-6">
       {{#each Photo}}
-        <img src={{this.img_url}} alt="" style="width:15vh;">
-      {{/each}}
+      <img src={{this.img_url}} alt="" style="width:15vh;"> {{/each}}
     </div>
   </div>
   <div class="row">
@@ -39,5 +44,13 @@
         </form>
       </div>
     </div>
+
+
+    <div class="col-6">
+      {{#each Pet}}
+      <h1> {{this.pet_name}}</h1> {{/each}}
+    </div>
+
+
   </div>
 </div>
