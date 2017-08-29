@@ -25,20 +25,20 @@ module.exports = function (app, passport) {
         if (req.isAuthenticated()) {
             Photo.findAll({
                 where: {
-                  UserId: req.user.dataValues.id,
-                  isPet: true
+                    UserId: req.user.dataValues.id,
+                    isPet: 1
                 },
                 include: [User]
-              }).then(function (data) {
+            }).then(function (data) {
                 var hbsObject = { "Photo": data };
                 res.render('photos', hbsObject);
-              });
+            });
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
         }
     });
 
-//!!!!Resubmitting the page post the image to cloudinary again!!!!!!
+    //!!!!Resubmitting the page post the image to cloudinary again!!!!!!
     app.post('/photos', upload.single('userFile'), function (req, res, next) {
         if (req.isAuthenticated()) {
             cloudinary.uploader.upload(req.file.path, result => {
@@ -47,20 +47,60 @@ module.exports = function (app, passport) {
                     isPet: true,
                     likes: 1,
                     img_url: result.secure_url,
-                    PetID: 0,
+                    PetId: 0,
                     UserId: req.user.dataValues.id
-                  })
-                fs.unlink(req.file.path, function(error) {
-                    if (error) {
-                        throw error;
-                    }
-                    console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
-                });
-              });
-              res.redirect('profile');
+                }).then(
+                    fs.unlink(req.file.path, function (error) {
+                        if (error) {
+                            throw error;
+                        }
+                        console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
+                    }));
+            });
+            res.redirect('profile');
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
-        } 
+        }
     })
-};
 
+    // app.post('/profilePic', function (req, res, next) {
+    //     console.log("!!!!!!!!!!!!!!!!!");
+    //     console.log(body);
+    //     console.log(req);
+    //     console.log("!!!!!!!!!!!!!!!!!");
+    //     Photo.create({
+    //         isPet: 0,
+    //         likes: 1,
+    //         img_url: "http://res.cloudinary.com/db3eyrc2q/image/upload/v1503611196/mbbimaujnrtzxdw5knsr.jpg",
+    //         PetId: null,
+    //         // UserId: req.user.dataValues.id
+    //     }).then(function () {
+    //         res.render('profile');
+    //     });
+    // })
+
+    // app.put('/profilePic', upload.single('userFile'), function (req, res, next) {
+    //     if (req.isAuthenticated()) {
+    //         cloudinary.uploader.upload(req.file.path, result => {
+    //             console.log(result);
+    //             Photo.update(
+    //                 img_url: result.secure_url,
+    //                 {
+    //                   where: {
+    //                     isPet: false,
+    //                     UserId: req.user.dataValues.id
+    //                   }
+    //                 })
+    //             fs.unlink(req.file.path, function(error) {
+    //                 if (error) {
+    //                     throw error;
+    //                 }
+    //                 console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
+    //             });
+    //           });
+    //           res.redirect('profile');
+    //     } else {
+    //         res.render('index', { message: req.flash('loginMessage')[0] });
+    //     } 
+    // })
+};

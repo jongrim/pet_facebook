@@ -70,14 +70,15 @@ module.exports = function (app, passport) {
   // });
 
 
-  app.get('/profile', redirectToLoginIfNotSignedIn, function (req, res) {
-     User.findAll({
+  app.get('/profile', redirectToLoginIfNotSignedIn, function (req, res) { 
+    User.findAll({
       where: {
-        id: req.user.dataValues.id
+        id: req.user.dataValues.id,
       },
       include: [Pet, Photo]
     }).then(function (data) {
-      res.render('profile', { user: req.user, Photo: data[0].Photos, Pet: data[0].Pets});
+      // console.log(data[0]);
+      res.render('profile', { user: req.user, Photo: data[0].Photos, Pet: data[0].Pets });
     });
   });
 

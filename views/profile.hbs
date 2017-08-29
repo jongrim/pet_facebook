@@ -4,8 +4,11 @@
     <div class="col-6">
       <div class="well">
         <div id="profilePic">
-          <img src="images/1.jpg" alt="Profile Picture" style="width:15vh;"> {{!-- {{#each ProfilePic}}
-          <img src={{this.img_url}} alt="User ID to COME" style="width:15vh;"> {{/each}} --}}
+          {{#each Photo}} 
+            {{#unless this.isPet}}
+              <img src={{this.img_url}} alt="" style="width:15vh;"> 
+            {{/unless}}
+          {{/each}}
         </div>
         {{!--
         <h3><span></span> {{user.email}}</h3>
@@ -24,8 +27,11 @@
       </div>
     </div>
     <div class="col-6">
-      {{#each Photo}}
-      <img src={{this.img_url}} alt="" style="width:15vh;"> {{/each}}
+      {{#each Photo}} 
+        {{#if this.isPet}}
+          <img src={{this.img_url}} alt="" style="width:15vh;"> 
+        {{/if}}
+      {{/each}}
     </div>
   </div>
   <div class="row">
@@ -44,13 +50,9 @@
         </form>
       </div>
     </div>
-
-
     <div class="col-6">
       {{#each Pet}}
       <h1> {{this.pet_name}}</h1> {{/each}}
     </div>
-
-
   </div>
 </div>

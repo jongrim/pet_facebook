@@ -22,8 +22,9 @@ module.exports = function (app, passport) {
                     likes: 1,
                     PetID: 0,
                     UserId: req.user.dataValues.id
-                  })
-              res.redirect('profile');
+                  }).then(function () {
+                    res.render('profile');
+                });
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
         } 
