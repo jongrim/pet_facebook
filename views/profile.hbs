@@ -15,15 +15,23 @@
         <p><strong>id:</strong> {{user.id}}</p> --}} {{!--
         <h3><span></span> {{user.first_name}} {{user.last_name}}</h3> --}}
         <p><strong>Email:</strong> {{user.email}}</p>
+        {{#if loggedIn}}
         <form action="/updateProfile" method="get">
           <button name="updateProfile" type="submit" class="btn btn-warning btn-sm">Edit Profile</button>
         </form>
+        {{/if}}
+        {{#if loggedIn}}
         <form action="/pets" method="get">
           <button name="pets" type="submit" class="btn btn-warning btn-sm">Add Pet</button>
         </form>
-        <form action="/photos" method="get">
-          <button name="photos" type="submit" class="btn btn-warning btn-sm">Upload Pet Photo</button>
-        </form>
+        {{/if}}
+        {{#if loggedIn}}
+        {{#if Pet.length}}
+          <form action="/photos" method="get">
+            <button name="photos" type="submit" class="btn btn-warning btn-sm">Upload Pet Photo</button>
+          </form>
+        {{/if}}
+        {{/if}}
       </div>
     </div>
     <div class="col-6">
@@ -35,24 +43,22 @@
     </div>
   </div>
   <div class="row">
+    {{#if loggedIn}}
     <div class="col-6">
       <div class="form-group">
-        <form id="submitPost" action="/posts" method="post">
+        <form id="submitPost" action="/feed" method="post">
           <label for="body">Make New Post:</label>
-          <textarea name="postBody" placeholder="Post Body" class="form-control" rows="6" id="body"></textarea> {{!-- I would
-          like the to add a drop down list for all the pets of that user --}} {{!--
-          <div class="form-group">
-            <label for="category">Select Pet:</label>
-            <select class="form-control" id="pet"></select>
-          </div> --}}
+          <textarea name="postBody" placeholder="Post Body" class="form-control" rows="6" id="body"></textarea> 
           <br />
           <button type="submit" name="button" value="submit" class="btn btn-warning submit btn-sm">Submit Post</button>
         </form>
       </div>
     </div>
+    {{/if}}
     <div class="col-6">
       {{#each Pet}}
-      <h1> {{this.pet_name}}</h1> {{/each}}
+        <h1> {{this.pet_name}}</h1> 
+      {{/each}}
     </div>
   </div>
 </div>

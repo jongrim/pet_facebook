@@ -8,9 +8,13 @@
       <div class="col s12 m6">
         {{#each Post}}
         <ul>
-            <ul>User Id: {{this.UserId}}</ul>
+            <ul>User: {{User.first_name}} {{User.last_name}}</ul>
             <ul>Content: {{this.textContent}}</ul>
-            <ul>Likes: {{this.likes}}</ul>
+            <ul>
+              <a id="viewProfile" href="/profile/{{User.id}}">
+                <button class="btn btn-warning submit btn-sm">View Profile</button>
+              </fa></ul>
+            {{!-- <ul>Likes: {{this.likes}}</ul> --}}
         </ul>
         {{/each}}
       </div>

@@ -9,6 +9,12 @@
         {{/each}}
       </div>
       <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="post">
+        <label for="category">Select Pet:</label>
+        <select class="form-control" name="pet">
+          {{#each Pet}}
+            <option value={{this.id}}>{{this.pet_name}}</option>
+          {{/each}}
+        </select>
         <input type="file" name="userFile" />
         <input type="submit" value="Upload Pet Photo" name="submit" class="btn btn-warning btn-lg">
       </form>

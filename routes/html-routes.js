@@ -44,41 +44,32 @@ module.exports = function (app, passport) {
     '/signup',
     passport.authenticate('local-signup', {
       successRedirect: '/profile',
-      failureRedirect: '/signup',
+      failureRedirect: '/signup?oops',
       failureFlash: true
     })
   );
 
-  //  I left this in because i think we need to take the title: profile to the one above
-  // app.get('/profile', isLoggedIn, function(req, res) {
-  //   if (req.isAuthenticated()) {
-  //     Photo.findAll({
-  //         where: {
-  //           UserId: req.user.dataValues.id,
-  //           isPet: false
-  //         },
-  //         include: [User]
-  //       }).then(function (data) {
-  //         res.render('profile', { user: req.user, "ProfilePic": data });
-  //       });
-  // } else {
-  //     res.render('index', { message: req.flash('loginMessage')[0] });
-  // }
+  app.get('/profile/:id?', redirectToLoginIfNotSignedIn, function (req, res) { 
+    var id = req.params.id;
+    var logged = false;
+    
+    if (req.params.id == null) {
+      id = req.user.dataValues.id;
+      logged = true;
+    }
 
-  // app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
-  //   res.render('feed', { title: 'Feed', user: req.user });
-  // });
+    if (req.params.id == req.user.dataValues.id) {
+      logged = true;
+    }
+    
 
-
-  app.get('/profile', redirectToLoginIfNotSignedIn, function (req, res) { 
     User.findAll({
       where: {
-        id: req.user.dataValues.id,
+        id: id,
       },
       include: [Pet, Photo]
     }).then(function (data) {
-      // console.log(data[0]);
-      res.render('profile', { user: req.user, Photo: data[0].Photos, Pet: data[0].Pets });
+      res.render('profile', { user: req.user, Photo: data[0].Photos, Pet: data[0].Pets, loggedIn: logged});
     });
   });
 

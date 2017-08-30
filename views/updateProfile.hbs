@@ -19,14 +19,16 @@
                     <label for="email">Email</label>
                     <input type="email" value={{this.email}} class="form-control" name="email">
                 </div>
-                <div class="form-group">
+                {{!-- !!!!!This needs to be done on a seperate page using the passport change password options --}}
+                {{!-- <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" value={{this.password}} class="form-control" name="password">
                 </div>
                 <div class="form-group">
                     <label for="confirm">Confirm password</label>
                     <input type="password" class="form-control" name="confirm">
-                </div>
+                </div> --}}
+                <label for="aboutMe">About Me:</label>
                 <textarea type="aboutMe" name="aboutMe" placeholder="Write something about yourself" class="form-control" rows="6" id="aboutMe"></textarea>
                 <br />
                 <button type="submit" name="button" value="submit" class="btn btn-warning submit btn-sm">Update Profile</button>

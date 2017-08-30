@@ -16,13 +16,14 @@ module.exports = function (app, passport) {
         }
     });
 
+    //this works but we need to talk about the password encryption and resetting password
     app.put('/updateProfile', function (req, res) {
         if (req.isAuthenticated()) {
             User.update(
                 {first_name: req.body.first_name,
                 last_species: req.body.last_name,
                 email: req.body.email,
-                password: req.body.password,
+                // password: req.body.password,
                 about: req.body.aboutMe},
                 {where: {id: req.user.dataValues.id}}
             ).then(function () {

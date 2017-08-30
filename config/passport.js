@@ -1,5 +1,6 @@
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models').User;
+const Photo = require('../models').Photo;
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -94,7 +95,21 @@ module.exports = function(passport) {
                   password: password
                 })
                   .then(user => {
-                    return done(null, user);
+                    console.log("!!!!!!!!");
+                    console.log(user);
+                    Photo.create({
+                      isPet: false,
+                      likes: 1,
+                      img_url: "https://res.cloudinary.com/db3eyrc2q/image/upload/v1503611196/dontDelete.jpg",
+                      PetId: null,
+                      UserId: user.dataValues.id
+                    }
+                  ).then(photo => {
+                    console.log("!!!!!!!!");
+                    console.log(user);
+                      return done(null, user);
+                      
+                    })
                   })
                   .catch(err => {
                     throw err;
