@@ -33,6 +33,10 @@
                 <br />
                 <button type="submit" name="button" value="submit" class="btn btn-warning submit btn-sm">Update Profile</button>
                 </form>
+                <form id="changePic" enctype="multipart/form-data" action="/profilePhotos" method="POST">
+                    <input type="file" name="userFile" />
+                    <input type="submit" value="Upload Pet Photo" name="submit" class="btn btn-warning btn-lg">
+                </form>
                 {{/each}}
             </div>
             <hr>

@@ -56,9 +56,33 @@ module.exports = function (app, passport) {
                             throw error;
                         }
                         console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
+                        res.redirect('profile');
                     }));
             });
-            res.redirect('profile');
+        } else {
+            res.render('index', { message: req.flash('loginMessage')[0] });
+        }
+    })
+
+    app.post('/profilePhotos', upload.single('userFile'), function (req, res, next) {
+        if (req.isAuthenticated()) {
+            cloudinary.uploader.upload(req.file.path, result => {
+                Photo.create({
+                    isPet: false,
+                    likes: 1,
+                    img_url: result.secure_url,
+                    PetId: null,
+                    UserId: req.user.dataValues.id
+                })
+                .then(
+                    fs.unlink(req.file.path, function (error) {
+                        if (error) {
+                            throw error;
+                        }
+                        console.log('Deleted ' + req.file.path.replace(/^.*[\\\/]/, '') + " from server.");
+                        res.redirect('profile');
+                    }));
+            });
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
         }

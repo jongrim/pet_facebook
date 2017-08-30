@@ -8,7 +8,7 @@
           <img src={{this.img_url}} alt="PET NAME TO COME" style="width:15vh;">
         {{/each}}
       </div>
-      <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="post">
+      <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="POST">
         <label for="category">Select Pet:</label>
         <select class="form-control" name="pet">
           {{#each Pet}}

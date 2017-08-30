@@ -10,10 +10,6 @@
             {{/unless}}
           {{/each}}
         </div>
-        {{!--
-        <h3><span></span> {{user.email}}</h3>
-        <p><strong>id:</strong> {{user.id}}</p> --}} {{!--
-        <h3><span></span> {{user.first_name}} {{user.last_name}}</h3> --}}
         <p><strong>Email:</strong> {{user.email}}</p>
         {{#if loggedIn}}
         <form action="/updateProfile" method="get">
