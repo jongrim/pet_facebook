@@ -1,52 +1,40 @@
 {{> nav}}
-
-<div class="container mt-5">
-  <div class="row">
-    <div class="col"></div>
-    <div class="col-9">
-      <h1><span class="fa fa-upload"></span>Posts</h1>
-      <div class="col s12 m6">
-        {{#each Post}}
-        <ul>
-            <ul>User: {{User.first_name}} {{User.last_name}}</ul>
-            <ul>Content: {{this.textContent}}</ul>
-            <ul>
-              <a id="viewProfile" href="/profile/{{User.id}}">
-                <button class="btn btn-warning submit btn-sm">View Profile</button>
-              </fa></ul>
-            {{!-- <ul>Likes: {{this.likes}}</ul> --}}
-        </ul>
-        {{/each}}
-      </div>
-      <hr>
-      <p>Or go <a href="/">home</a>.</p>
-    </div>
-    <div class="col"></div>
-  </div>
-</div>
-
-{{!-- <div class="container">
+<div class="container">
   <div class="row">
     <div class="col-md-3 d-flex flex-column align-items-center">
       <div class="hidden-sm-down">
         <img src="#" alt="Profile photo" class="img-thumbnail">
       </div>
     </div>
-    <div class="col-md col-sm-12">
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Porro beatae saepe rem ab, nobis, dolorem quod, id neque
-        fugiat deleniti itaque dicta doloribus. Suscipit nulla ducimus perferendis omnis? Et, quas!</p>
-      <p>Voluptas earum nulla deleniti sapiente aliquam consequatur velit mollitia quisquam veniam iure enim, ut quidem? Minus
-        voluptatem vero, deleniti labore blanditiis quasi voluptatum! Sapiente voluptatem labore aliquid minima officiis
-        illo?
-      </p>
-      <p>Saepe totam adipisci nihil quo. Commodi ipsa at, suscipit fugiat labore libero eos sint molestias animi cum quas magnam
-        minus, eligendi tempore iusto et est laudantium quae provident? Velit, aut.</p>
-      <p>Distinctio commodi reprehenderit animi molestias, placeat sed voluptates deleniti inventore alias ipsum, nisi quaerat
-        eligendi! Recusandae reiciendis, distinctio velit doloribus laborum vitae repudiandae, vero a deleniti, similique
-        assumenda ut animi.</p>
-      <p>Pariatur, modi vitae dolorum accusantium reiciendis quam, laboriosam atque animi et voluptates, quidem laudantium labore
-        repellat velit veritatis? Amet facere neque non esse fuga ducimus unde quam. Quae, velit reprehenderit.</p>
+    <div class="col-md-6 col-sm-12">
+
+      <div class="card mb-3 bg-light border border-white p-2">
+        <form action="" method="POST">
+          <p class="lead text-dark">Post something</p>
+          <div class="form-group">
+            <textarea class="form-control" name="post-text" id="postText" rows="2"></textarea>
+          </div>
+          <button type="submit" class="btn btn-outline-success btn-sm pull-right">Post</button>
+
+        </form>
+      </div>
+
+
+      {{#each Post}}
+      <div class="card mb-3">
+        <img src="#" alt="Post Image" class="card-img-top">
+        <div class="card-body">
+          <p class="card-text">
+            {{this.textContent}}
+          </p>
+          <p class="blockquote-footer"><a href="profile/{{User.id}}">{{User.first_name}} {{User.last_name}}</a>, {{this.updatedAt}}</p>
+          <div class="btn-group" role="group" aria-label="Post actions">
+            <button class="btn btn-link">Like</button><button class="btn btn-link">Comment</button>
+          </div>
+        </div>
+      </div>
+      {{/each}}
     </div>
 
   </div>
-</div> --}}
+</div>
