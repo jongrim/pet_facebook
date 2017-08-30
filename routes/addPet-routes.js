@@ -27,7 +27,7 @@ module.exports = function (app, passport) {
                     pet_about: req.body.pet_about,
                     UserId: req.user.dataValues.id
                   }).then(function () {
-                    res.render('profile');
+                    res.redirect('profile');
                 });
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
