@@ -1,60 +1,54 @@
 {{> nav}}
 <div class="container">
   <div class="row">
-    <div class="col-6">
-      <div class="well">
-        <div id="profilePic">
-          {{#each Photo}} 
-            {{#unless this.isPet}}
-              <img src={{this.img_url}} alt="" style="width:15vh;"> 
-            {{/unless}}
-          {{/each}}
-        </div>
-        <p><strong>Email:</strong> {{user.email}}</p>
-        {{#if loggedIn}}
-        <form action="/updateProfile" method="get">
-          <button name="updateProfile" type="submit" class="btn btn-warning btn-sm">Edit Profile</button>
-        </form>
-        {{/if}}
-        {{#if loggedIn}}
-        <form action="/pets" method="get">
-          <button name="pets" type="submit" class="btn btn-warning btn-sm">Add Pet</button>
-        </form>
-        {{/if}}
-        {{#if loggedIn}}
-        {{#if Pet.length}}
-          <form action="/photos" method="get">
-            <button name="photos" type="submit" class="btn btn-warning btn-sm">Upload Pet Photo</button>
-          </form>
-        {{/if}}
-        {{/if}}
+
+    {{!-- Sidebar --}} {{#if enableEdit}}
+    <div class="col-md-3 d-flex flex-column align-items-center">
+      <div class="hidden-sm-down">
+        <img src="/images/1.jpg" alt="Profile photo" class="img-thumbnail">
       </div>
-    </div>
-    <div class="col-6">
-      {{#each Photo}} 
-        {{#if this.isPet}}
-          <img src={{this.img_url}} alt="" style="width:15vh;"> 
-        {{/if}}
-      {{/each}}
-    </div>
-  </div>
-  <div class="row">
-    {{#if loggedIn}}
-    <div class="col-6">
-      <div class="form-group">
-        <form id="submitPost" action="/feed" method="post">
-          <label for="body">Make New Post:</label>
-          <textarea name="postBody" placeholder="Post Body" class="form-control" rows="6" id="body"></textarea> 
-          <br />
-          <button type="submit" name="button" value="submit" class="btn btn-warning submit btn-sm">Submit Post</button>
-        </form>
+      <div class="card-text hidden-sm-down">
+        {{user.first_name}} {{user.last_name}}
+      </div>
+      <hr>
+      <div class="btn-group-vertical">
+        <a class="btn btn-primary" href="/pets">Add new pet</a>
+        <a class="btn btn-primary" href="/photos">Add photos</a>
       </div>
     </div>
     {{/if}}
+
     <div class="col-6">
-      {{#each Pet}}
-        <h1> {{this.pet_name}}</h1> 
-      {{/each}}
+
+      <div class="card mb-3 bg-light">
+        <div class="card-block d-flex flex-column align-items-center">
+          <h4 class="card-title mt-1">Pets</h4>
+          <div class="d-flex justify-content-around align-items-start mb-3">
+            {{#each Pet}}
+            <div class="card" style="width:33%">
+              {{!-- if pet photo --}}
+              <img src="/images/1.jpg" alt="" class="card-img-top">
+              <h5 class="card-title text-center mt-1">{{this.pet_name}}</h5>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3 bg-light">
+        <div class="card-block d-flex flex-column align-items-center">
+          <h4 class="card-title mt-1">Photos</h4>
+          <div class="d-flex justify-content-around align-items-start mb-3">
+
+            {{#each Photo}}
+            <div class="card" style="width:33%">
+              {{!-- if pet photo --}}
+              <img src="{{this.img_url}}" alt="photo" class="card-img">
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

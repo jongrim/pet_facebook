@@ -2,7 +2,6 @@ import { isLongEnough, hasNumbers, passwordsMatch } from './password.js';
 
 export default class Signup {
   constructor() {
-    console.log('setting up Signup');
     // DOM cache
     this.$firstName = $('#firstName');
     this.$lastName = $('#lastName');
