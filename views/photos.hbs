@@ -22,11 +22,12 @@
           <div class="d-flex justify-content-around align-items-start mb-3">
             <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="POST">
               <label for="category">Select Pet:</label>
-              <select class="form-control" name="pet">
-          {{#each Pet}}
-            <option value={{this.id}}>{{this.pet_name}}</option>
-          {{/each}}
-        </select>
+              <select class="form-control" name="pet" required>
+                <option disabled selected value> -- select an pet -- </option>
+                {{#each Pet}}
+                  <option value={{this.id}}>{{this.pet_name}}</option>
+                {{/each}}
+              </select>
               <div class="form-group">
                 <label for="userFile">Choose a file</label>
                 <input class="form-control" accept=".png, .jpg" type="file" name="userFile" id="petPhotoFile">
