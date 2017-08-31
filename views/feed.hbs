@@ -1,21 +1,14 @@
 {{> nav}}
 <div class="container">
   <div class="row">
-    <div class="col-md-3 d-flex flex-column align-items-center">
-      <div class="hidden-sm-down">
-        <img src="#" alt="Profile photo" class="img-thumbnail">
-      </div>
-    </div>
-    <div class="col-md-6 col-sm-12">
+    <div class="col-md-6 col-sm-12 mx-auto">
 
       <div class="card mb-3 bg-light border border-white p-2">
-
         <p class="lead text-dark">Post something</p>
         <div class="form-group">
           <textarea class="form-control" name="postText" id="postText" rows="2"></textarea>
         </div>
-        <button type="submit" class="btn btn-outline-success btn-sm pull-right" id="postSubmit" style="width: 80px">Post</button>
-
+        <button type="submit" class="btn btn-outline-success btn-sm ml-auto" id="postSubmit" style="width: 80px">Post</button>
       </div>
 
       <div id="postContainer">
@@ -26,10 +19,11 @@
             <p class="card-text">
               {{this.textContent}}
             </p>
-            <p class="blockquote-footer"><a href="profile/{{User.id}}">{{User.first_name}} {{User.last_name}}</a>, {{this.updatedAt}}</p>
+            <p class="blockquote-footer"><a href="profile/{{User.id}}">{{User.first_name}} {{User.last_name}}</a>, {{this.createdAt}}</p>
+            {{!--
             <div class="btn-group" role="group" aria-label="Post actions">
               <button class="btn btn-link">Like</button><button class="btn btn-link">Comment</button>
-            </div>
+            </div> --}}
           </div>
         </div>
         {{/each}}

@@ -98,15 +98,15 @@ module.exports = function(passport) {
                     Photo.create({
                       isPet: false,
                       likes: 1,
-                      img_url: "https://res.cloudinary.com/db3eyrc2q/image/upload/v1503611196/dontDelete.jpg",
+                      img_url:
+                        'https://res.cloudinary.com/db3eyrc2q/image/upload/v1503611196/dontDelete.jpg',
                       default_Pic: true,
                       PetId: null,
                       UserId: user.dataValues.id
-                    }
-                  ).then(photo => {
+                    }).then(photo => {
                       return done(null, user);
-                      
-                    })
+                    });
+                    return;
                   })
                   .catch(err => {
                     throw err;

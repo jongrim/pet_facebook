@@ -38,6 +38,7 @@ class Feed {
   }
 
   insertPost(postTextContent, postTime, user) {
+    this.$postText.val('');
     let origin = location.origin;
     axios.get(`${origin}/api/user/${user}`).then(result => {
       console.log(result);
@@ -50,9 +51,9 @@ class Feed {
         `${postTextContent}` +
         `</p>` +
         `<p class="blockquote-footer"><a href="profile/${user}">${data.first_name} ${data.last_name}</a>, ${postTime}</p>` +
-        `<div class="btn-group" role="group" aria-label="Post actions">` +
-        `<button class="btn btn-link">Like</button><button class="btn btn-link">Comment</button>` +
-        `</div>` +
+        // `<div class="btn-group" role="group" aria-label="Post actions">` +
+        // `<button class="btn btn-link">Like</button><button class="btn btn-link">Comment</button>` +
+        // `</div>` +
         `</div>` +
         `</div>`;
 
