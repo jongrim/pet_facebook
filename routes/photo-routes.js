@@ -125,7 +125,8 @@ module.exports = function(app, passport) {
             {default_Pic: false},
             {where: {
               UserId: req.user.dataValues.id, 
-              isPet: true
+              isPet: true,
+              PetId: req.body.petId
             }}
         ).then( () => {
           Photo.update(

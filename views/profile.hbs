@@ -53,10 +53,29 @@
                   {{#if this.default_Pic}}
                   <div class="card" style="width:33%">
                     <img src={{this.img_url}} alt="" class="card-img-top">
-                    <h5 class="card-title text-center mt-1">{{Pet}}</h5>
+                    <h5 class="card-title text-center mt-1">{{this.PetId}}</h5>
                   </div>
                   {{/if}}
                 {{/if}}
+              {{/each}}
+            {{/unless}}         
+          </div>
+        </div>
+      </div>
+      
+      <div class="card mb-3 bg-light">
+        <div class="card-block d-flex flex-column align-items-center">
+          <h4 class="card-title mt-1">About Pets</h4>
+          <div class="d-flex justify-content-around align-items-start mb-3">
+            {{#unless Pet.length}}
+              Click Add New Pet to get started
+            {{else}}
+              {{#each Pet}}
+                  <div class="card">
+                    <h5> {{this.id}}:  {{this.pet_name}} </h5>
+                    <h5> {{this.pet_breed}} </h5>
+                    <h5> {{this.pet_about}} </h5>
+                  </div>
               {{/each}}     
             {{/unless}}         
           </div>

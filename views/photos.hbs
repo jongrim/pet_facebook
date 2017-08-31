@@ -4,13 +4,13 @@
     <div class="col-9">
       <h1><span class="fa fa-upload"></span> !!!!!!!!!CLICK AN IMAGE TO SET IS A DEFAULT</h1>
       <div class="col s12 m6">
-        <form action="/profilePhotosPet?_method=PUT" method="POST">
         {{#each Photo}}
           {{#if this.isPet}}
-            <button type="submit" name="newDefault" value={{this.id}} style="all:unset;"><img src={{this.img_url}} alt="" style="width:15vh;"></button>
+          <form action="/profilePhotosPet?_method=PUT" method="POST" style="display: inline">
+            <button type="submit" name="newDefault" value={{this.id}} style="all:unset;"><input type="hidden" name="petId" value={{this.PetId}}><img src={{this.img_url}} alt="" style="width:15vh;"></button>
+          </form>
           {{/if}}
         {{/each}}
-        </form>
       </div>
       <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="POST">
         <label for="category">Select Pet:</label>
