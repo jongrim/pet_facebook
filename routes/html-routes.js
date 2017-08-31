@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
     })
       .then(function(data) {
         res.render('profile', {
-          user: req.user,
+          user: data[0],
           Photo: data[0].Photos,
           Pet: data[0].Pets,
           enableEdit: true
@@ -86,10 +86,9 @@ module.exports = function(app, passport) {
       console.log("!!!!!!!!!!!!!!!!!!");
       console.log(req.user);
       res.render('profile', {
-        user: req.user,
+        user: data[0],
         Photo: data[0].Photos,
         Pet: data[0].Pets,
-        Data: data[0],
         enableEdit: false
       });
     });
