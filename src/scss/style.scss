@@ -1,8 +1,19 @@
-@import "custom";
-@import "~bootstrap/scss/bootstrap";
+@import 'custom';
+@import '~bootstrap/scss/bootstrap';
 
 @include media-breakpoint-down(sm) {
   .hidden-sm-down {
     display: none;
   }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.jumbotron {
+  background-image: url('/images/pup_grass.jpg');
+  background-size: cover;
+  background-position: 50% 50%;
 }
