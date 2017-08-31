@@ -1,13 +1,14 @@
 const User = require('../models').User;
+const Photo = require('../models').Photo;
 const Post = require('../models').Post;
 
 module.exports = function(app, passport) {
   app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
     Post.findAll({
+      // look into fixing the photo part
       include: [User]
     })
       .then(function(data) {
-        console.log(data);
         res.render('feed', { Post: data, User: data[0].User });
       })
       .catch(() => {
@@ -17,12 +18,13 @@ module.exports = function(app, passport) {
 
   app.post('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
     Post.create({
-      textContent: req.body.postBody,
+      textContent: req.body.postText,
       likes: 1,
       PetID: 0,
       UserId: req.user.dataValues.id
-    }).then(function() {
-      res.redirect('feed');
+    }).then(function(data) {
+      // res.redirect('/feed');
+      res.json(data);
     });
   });
 };

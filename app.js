@@ -1,5 +1,5 @@
 require('dotenv').config();
-const methodOverride = require("method-override");
+const methodOverride = require('method-override');
 const express = require('express');
 const path = require('path');
 const favicon = require('serve-favicon');
@@ -16,7 +16,7 @@ const app = express();
 const db = require('./models');
 
 // Override with POST having ?_method=DELETE
-app.use(methodOverride("_method"));
+app.use(methodOverride('_method'));
 
 // view engine setup
 const hbs = require('hbs');
@@ -51,6 +51,8 @@ require('./routes/photo-routes.js')(app, passport);
 require('./routes/post-routes.js')(app, passport);
 require('./routes/addPet-routes.js')(app, passport);
 require('./routes/updateProfile-routes.js')(app, passport);
+const APIrouter = require('./routes/api-routes');
+app.use('/api', APIrouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -58,7 +60,7 @@ app.use(function(req, res, next) {
   // err.status = 404;
   // next(err);
   res.redirect('/login');
-  return
+  return;
 });
 
 // error handler

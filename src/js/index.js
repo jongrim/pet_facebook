@@ -1,5 +1,6 @@
 import 'bootstrap';
 import Signup from './signup.js';
+import Feed from './feed.js';
 
 function runPageScripts(location) {
   let pathname = location.pathname;
@@ -8,12 +9,14 @@ function runPageScripts(location) {
     case '/signup':
       new Signup();
       break;
+    case '/feed':
+      new Feed();
+      break;
     default:
       console.log('no matching path');
   }
 }
 
 $(document).ready(() => {
-  console.log(location);
   runPageScripts(location);
 });
