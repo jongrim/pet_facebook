@@ -2,42 +2,29 @@
 <div class="container">
   <div class="row">
 
-    {{!-- Sidebar --}} 
+    {{!-- Sidebar --}}
     <div class="col-md-3 d-flex flex-column align-items-center">
       <div class="hidden-sm-down">
-        {{#each Photo}}
-          {{#unless this.isPet}}
-            {{#if this.default_Pic}}
-              <img src={{this.img_url}} alt="Profile photo" class="img-thumbnail">
-            {{/if}}
-          {{/unless}}
-        {{/each}} 
+        {{#each Photo}} {{#unless this.isPet}} {{#if this.default_Pic}}
+        <img src={{this.img_url}} alt="Profile photo" class="img-thumbnail"> {{/if}} {{/unless}} {{/each}}
       </div>
       <div class="card-text hidden-sm-down">
         {{user.first_name}} {{user.last_name}}
       </div>
       <div class="card-text hidden-sm-down">
-        {{#unless user.about}}
-          Click Edit Profile to add an About Me Section 
-        {{else}}
-          {{user.about}}
-        {{/unless}}
-        {{#each Photo.dataValues}}
-            <option value={{this.id}}>{{this}}</option>
-          {{/each}}
+        {{#unless user.about}} Click Edit Profile to add an About Me Section {{else}} {{user.about}} {{/unless}} {{#each Photo.dataValues}}
+        <option value={{this.id}}>{{this}}</option>
+        {{/each}}
       </div>
-      <hr>
-      {{#if enableEdit}}
+      <hr> {{#if enableEdit}}
       <div class="btn-group-vertical">
         <a class="btn btn-primary" href="/updateProfile">Edit Profile</a>
-        <a class="btn btn-primary" href="/pets">Add New Pet</a>
-        {{#if Pet.length}}
-        <a class="btn btn-primary" href="/photos">Edit/Add photos</a>
-        {{/if}}
+        <a class="btn btn-primary" href="/pets">Add New Pet</a> {{#if Pet.length}}
+        <a class="btn btn-primary" href="/photos">Manage Photos</a> {{/if}}
       </div>
       {{/if}}
     </div>
-    
+
 
     <div class="col-6">
 
@@ -45,39 +32,30 @@
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Pets</h4>
           <div class="d-flex justify-content-around align-items-start mb-3">
-            {{#unless Pet.length}}
-              Click Add New Pet to get started
-            {{else}}
-              {{#each Photo}}
-                {{#if this.isPet}}
-                  {{#if this.default_Pic}}
-                  <div class="card" style="width:33%">
-                    <img src={{this.img_url}} alt="" class="card-img-top">
-                    {{!-- <h5 class="card-title text-center mt-1">{{this.PetId}}</h5> --}}
-                  </div>
-                  {{/if}}
-                {{/if}}
-              {{/each}}
-            {{/unless}}         
+            {{#unless Pet.length}} Click Add New Pet to get started {{else}} {{#each Photo}} {{#if this.isPet}} {{#if this.default_Pic}}
+            <div class="card" style="width:33%">
+              <img src={{this.img_url}} alt="" class="card-img-top">
+            </div>
+            {{/if}} {{/if}} {{/each}} {{/unless}}
           </div>
         </div>
       </div>
-      
+
       <div class="card mb-3 bg-light">
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">About Pets</h4>
-          <div class="d-flex justify-content-around align-items-start mb-3">
-            {{#unless Pet.length}}
-              Click Add New Pet to get started
-            {{else}}
-              {{#each Pet}}
-                  <div class="card">
-                    <h5> {{!-- {{this.id}}: --}}  {{this.pet_name}} </h5>
-                    <h5> {{this.pet_breed}} </h5>
-                    <h5> {{this.pet_about}} </h5>
-                  </div>
-              {{/each}}     
-            {{/unless}}         
+          <div class="d-flex justify-content-around align-items-start mb-3 w-100">
+            {{#unless Pet.length}} Click Add New Pet to get started {{else}} {{#each Pet}}
+            <div class="card">
+              <div class="card-title">
+                <h5 class="text-center mt-1"> {{this.pet_name}} </h5>
+              </div>
+              <div class="card-body">
+                <p> <strong>Breed:</strong> {{this.pet_breed}} </p>
+                <p> <strong>About:</strong> {{this.pet_about}} </p>
+              </div>
+            </div>
+            {{/each}} {{/unless}}
           </div>
         </div>
       </div>
@@ -86,13 +64,11 @@
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Photos</h4>
           <div class="d-flex justify-content-around align-items-start mb-3">
-            {{#each Photo}}
-              {{#if this.isPet}}
-                <div class="card" style="width:33%">
-                  <img src={{this.img_url}} alt="" class="card-img-top">
-                </div>
-              {{/if}}
-            {{/each}} 
+            {{#each Photo}} {{#if this.isPet}}
+            <div class="card" style="width:33%">
+              <img src={{this.img_url}} alt="" class="card-img-top">
+            </div>
+            {{/if}} {{/each}}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import 'bootstrap';
 import Signup from './signup.js';
 import Feed from './feed.js';
+import Photo from './photo.js';
 
 function runPageScripts(location) {
   let pathname = location.pathname;
@@ -12,8 +13,11 @@ function runPageScripts(location) {
     case '/feed':
       new Feed();
       break;
+    case '/photos':
+      new Photo();
+      break;
     default:
-      console.log('no matching path');
+      break;
   }
 }
 

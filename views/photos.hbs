@@ -1,43 +1,71 @@
-<div class="container mt-5">
+{{>nav}}
+<div class="container">
   <div class="row">
-    <div class="col"></div>
-    <div class="col-9">
-      <h1><span class="fa fa-upload"></span> !!!!!!!!!CLICK AN IMAGE TO SET IS A DEFAULT</h1>
-      <div class="col s12 m6">
-        {{#each Photo}}
-          {{#if this.isPet}}
-          <form action="/profilePhotosPet?_method=PUT" method="POST" style="display: inline">
-            <button type="submit" name="newDefault" value={{this.id}} style="all:unset;"><input type="hidden" name="petId" value={{this.PetId}}><img src={{this.img_url}} alt="" style="width:15vh;"></button>
-          </form>
-          {{/if}}
-        {{/each}}
-      </div>
-      <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="POST">
-        <label for="category">Select Pet:</label>
-        <select class="form-control" name="pet">
+    <div class="col-9 mx-auto">
+      <h1><span class="fa fa-upload"></span> Manage Photos</h1>
+
+      <div class="card mb-3 bg-light">
+        <div class="card-block d-flex flex-column align-items-center">
+          <h4 class="card-title mt-1">Pet Photos</h4>
+          <small class="text-muted">Select a pet, then click a photo to set its default photo</small>
+          <div class="d-flex justify-content-around align-items-start mb-3">
+            {{#each Photo}} {{#if this.isPet}}
+            <form action="/profilePhotosPet?_method=PUT" method="POST" style="display: inline">
+              <button type="submit" name="newDefault" value={{this.id}} style="all:unset;"><input type="hidden" name="petId" value={{this.PetId}}><img src={{this.img_url}} alt="" style="width:15vh;"></button>
+            </form>
+            {{/if}} {{/each}}
+          </div>
+        </div>
+
+        <div class="card-block d-flex flex-column align-items-center">
+          <h5 class="card-title mt-1">Upload new pet photos</h5>
+          <div class="d-flex justify-content-around align-items-start mb-3">
+            <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="POST">
+              <label for="category">Select Pet:</label>
+              <select class="form-control" name="pet">
           {{#each Pet}}
             <option value={{this.id}}>{{this.pet_name}}</option>
           {{/each}}
         </select>
-        <input type="file" name="userFile" />
-        <input type="submit" value="Upload Pet Photo" name="submit" class="btn btn-warning btn-lg">
-      </form>
-      <div class="col s12 m6">
-        <form action="/profilePhotosUser?_method=PUT" method="POST">
-        {{#each Photo}}
-          {{#unless this.isPet}}
-            <button type="submit" name="newDefault" value={{this.id}} style="all:unset;"><img src={{this.img_url}} alt="" style="width:15vh;"></button>
-          {{/unless}}
-        {{/each}}
-        </form>
+              <div class="form-group">
+                <label for="userFile">Choose a file</label>
+                <input class="form-control" accept=".png, .jpg" type="file" name="userFile" id="petPhotoFile">
+              </div>
+              <button class="btn btn-primary" type="submit" id="petPhotoUpload" disabled>Upload</button>
+            </form>
+          </div>
+        </div>
       </div>
-      <form id="changePic" enctype="multipart/form-data" action="/profilePhotos" method="POST">
-        <input type="file" name="userFile" />
-        <input type="submit" value="Upload Profile Photo" name="submit" class="btn btn-warning btn-lg">
-      </form>
+
+      <div class="card mb-3 bg-light">
+        <div class="card-block d-flex flex-column align-items-center">
+          <h4 class="card-title mt-1">Profile Photos</h4>
+          <small class="text-muted">Click a photo to set it as your profile photo</small>
+          <div class="d-flex justify-content-around align-items-start mb-3">
+            {{#each Photo}} {{#unless this.isPet}}
+            <form action="/profilePhotosUser?_method=PUT" method="POST">
+              <button type="submit" name="newDefault" value={{this.id}} style="all:unset;"><img src={{this.img_url}} alt="" style="width:15vh;"></button>
+            </form>
+            {{/unless}} {{/each}}
+          </div>
+
+          <div class="card-block d-flex flex-column align-items-center">
+            <h5 class="card-title mt-1">Upload new profile photo</h5>
+            <div class="d-flex justify-content-around align-items start mb-3">
+              <form id="changePic" enctype="multipart/form-data" action="/profilePhotos" method="POST">
+                <div class="form-group">
+                  <label for="userFile">Choose a file</label>
+                  <input class="form-control" accept=".png, .jpg" type="file" name="userFile" id="userPhotoFile" />
+                </div>
+                <button class="btn btn-primary" type="submit" id="userPhotoUpload" disabled>Upload</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
       <hr>
       <p>Or go <a href="/">home</a>.</p>
     </div>
-    <div class="col"></div>
   </div>
 </div>
