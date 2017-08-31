@@ -83,6 +83,8 @@ module.exports = function(app, passport) {
       },
       include: [Pet, Photo]
     }).then(function(data) {
+      console.log("!!!!!!!!!!!!!!!!!!");
+      console.log(req.user);
       res.render('profile', {
         user: req.user,
         Photo: data[0].Photos,

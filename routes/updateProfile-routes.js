@@ -31,5 +31,5 @@ module.exports = function (app, passport) {
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });
         } 
-    })
+    });
 };

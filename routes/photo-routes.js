@@ -118,4 +118,46 @@ module.exports = function(app, passport) {
       res.render('index', { message: req.flash('loginMessage')[0] });
     }
   });
+
+  app.put('/profilePhotosPet', function (req, res) {
+    if (req.isAuthenticated()) {
+        Photo.update(
+            {default_Pic: false},
+            {where: {
+              UserId: req.user.dataValues.id, 
+              isPet: true
+            }}
+        ).then( () => {
+          Photo.update(
+            {default_Pic: true},
+            {where: {id: req.body.newDefault}}
+          ).then(function () {
+            res.redirect('profile');
+        });
+      });
+    } else {
+        res.render('index', { message: req.flash('loginMessage')[0] });
+    } 
+})
+
+app.put('/profilePhotosUser', function (req, res) {
+  if (req.isAuthenticated()) {
+      Photo.update(
+          {default_Pic: false},
+          {where: {
+            UserId: req.user.dataValues.id, 
+            isPet: false
+          }}
+      ).then( () => {
+        Photo.update(
+          {default_Pic: true},
+          {where: {id: req.body.newDefault}}
+        ).then(function () {
+          res.redirect('profile');
+      });
+    });
+  } else {
+      res.render('index', { message: req.flash('loginMessage')[0] });
+  } 
+})
 };

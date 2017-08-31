@@ -7,8 +7,6 @@ module.exports = function(app, passport) {
       include: [User]
     })
       .then(function(data) {
-        console.log("!!!!!!!!!!!!!!!!!!");
-        console.log(data);
         res.render('feed', { Post: data, User: data[0].User });
       })
       .catch(() => {

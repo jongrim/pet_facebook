@@ -31,7 +31,9 @@
       <div class="btn-group-vertical">
         <a class="btn btn-primary" href="/updateProfile">Edit Profile</a>
         <a class="btn btn-primary" href="/pets">Add New Pet</a>
+        {{#if Pet.length}}
         <a class="btn btn-primary" href="/photos">Edit/Add photos</a>
+        {{/if}}
       </div>
       {{/if}}
     </div>
@@ -43,16 +45,20 @@
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Pets</h4>
           <div class="d-flex justify-content-around align-items-start mb-3">
-            {{#each Photo}}
-              {{#if this.isPet}}
-                {{#if this.default_Pic}}
-                <div class="card" style="width:33%">
-                  <img src={{this.img_url}} alt="" class="card-img-top">
-                  <h5 class="card-title text-center mt-1">{{Pet}}</h5>
-                </div>
+            {{#unless Pet.length}}
+              Click Add New Pet to get started
+            {{else}}
+              {{#each Photo}}
+                {{#if this.isPet}}
+                  {{#if this.default_Pic}}
+                  <div class="card" style="width:33%">
+                    <img src={{this.img_url}} alt="" class="card-img-top">
+                    <h5 class="card-title text-center mt-1">{{Pet}}</h5>
+                  </div>
+                  {{/if}}
                 {{/if}}
-              {{/if}}
-            {{/each}}              
+              {{/each}}     
+            {{/unless}}         
           </div>
         </div>
       </div>
