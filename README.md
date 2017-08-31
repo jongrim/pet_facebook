@@ -1,7 +1,7 @@
 # Petster
 What's the worst part about social media? The people.
 
-That's why we started **[Petster](https://thepetbook.herokuapp.com/)**, a place where we can all talk about and show the things we care most about, out pets.
+That's why we started **[Petster](https://thepetbook.herokuapp.com/)**, a place where we can all talk about and show the things we care most about, our pets.
 
 ## Features
 Using Petster, you can create a profile and add all of your pets. You can also upload photos for those pets and your profile. There's even a feed section for sending messages out into the world for the rest of the Petster community to enjoy. If your concerned about your pet data, don't worry, Petster includes authentication.
