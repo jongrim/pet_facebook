@@ -1,13 +1,27 @@
 const User = require('../models').User;
+const Photo = require('../models').Photo;
 const Post = require('../models').Post;
+const moment = require('moment');
 
 module.exports = function(app, passport) {
   app.get('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
     Post.findAll({
+      order: [['createdAt', 'DESC']],
+      // look into fixing the photo part
       include: [User]
     })
       .then(function(data) {
-        res.render('feed', { Post: data, User: data[0].User });
+        let mapData = data.map(post => {
+          post.dataValues.createdAt = moment(
+            post.dataValues.createdAt,
+            moment.ISO_8601
+          ).format('MMM, Do @ h:mm a');
+          return post;
+        });
+        res.render('feed', {
+          Post: mapData,
+          User: data[0].User
+        });
       })
       .catch(() => {
         res.render('feed');
@@ -16,12 +30,12 @@ module.exports = function(app, passport) {
 
   app.post('/feed', redirectToLoginIfNotSignedIn, function(req, res) {
     Post.create({
-      textContent: req.body.postBody,
+      textContent: req.body.postText,
       likes: 1,
       PetID: 0,
       UserId: req.user.dataValues.id
-    }).then( () => {
-      res.redirect('feed');
+    }).then(function(data) {
+      res.json(data);
     });
   });
 };
