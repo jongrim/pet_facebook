@@ -59,7 +59,7 @@ module.exports = function(app, passport) {
     })
       .then(function(data) {
         res.render('profile', {
-          user: req.user,
+          user: data[0],
           Photo: data[0].Photos,
           Pet: data[0].Pets,
           enableEdit: true
@@ -84,7 +84,7 @@ module.exports = function(app, passport) {
       include: [Pet, Photo]
     }).then(function(data) {
       res.render('profile', {
-        user: req.user,
+        user: data[0],
         Photo: data[0].Photos,
         Pet: data[0].Pets,
         enableEdit: false
