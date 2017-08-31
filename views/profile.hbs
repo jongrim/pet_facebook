@@ -53,7 +53,7 @@
                   {{#if this.default_Pic}}
                   <div class="card" style="width:33%">
                     <img src={{this.img_url}} alt="" class="card-img-top">
-                    <h5 class="card-title text-center mt-1">{{this.PetId}}</h5>
+                    {{!-- <h5 class="card-title text-center mt-1">{{this.PetId}}</h5> --}}
                   </div>
                   {{/if}}
                 {{/if}}
@@ -72,7 +72,7 @@
             {{else}}
               {{#each Pet}}
                   <div class="card">
-                    <h5> {{this.id}}:  {{this.pet_name}} </h5>
+                    <h5> {{!-- {{this.id}}: --}}  {{this.pet_name}} </h5>
                     <h5> {{this.pet_breed}} </h5>
                     <h5> {{this.pet_about}} </h5>
                   </div>
