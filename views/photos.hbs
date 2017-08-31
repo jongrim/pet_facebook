@@ -5,7 +5,9 @@
       <h1><span class="fa fa-upload"></span> Photos</h1>
       <div class="col s12 m6">
         {{#each Photo}}
-          <img src={{this.img_url}} alt="PET NAME TO COME" style="width:15vh;">
+          {{#if this.isPet}}
+            <img src={{this.img_url}} alt="PET NAME TO COME" style="width:15vh;">
+          {{/if}}
         {{/each}}
       </div>
       <form id="uploadForm" enctype="multipart/form-data" action="/photos" method="POST">
@@ -17,6 +19,17 @@
         </select>
         <input type="file" name="userFile" />
         <input type="submit" value="Upload Pet Photo" name="submit" class="btn btn-warning btn-lg">
+      </form>
+      <div class="col s12 m6">
+        {{#each Photo}}
+          {{#unless this.isPet}}
+            <img src={{this.img_url}} alt="Profile Pic Name TO COME" style="width:15vh;">
+          {{/unless}}
+        {{/each}}
+      </div>
+      <form id="changePic" enctype="multipart/form-data" action="/profilePhotos" method="POST">
+        <input type="file" name="userFile" />
+        <input type="submit" value="Upload Profile Photo" name="submit" class="btn btn-warning btn-lg">
       </form>
       <hr>
       <p>Or go <a href="/">home</a>.</p>

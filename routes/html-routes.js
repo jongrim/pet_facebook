@@ -87,6 +87,7 @@ module.exports = function(app, passport) {
         user: req.user,
         Photo: data[0].Photos,
         Pet: data[0].Pets,
+        Data: data[0],
         enableEdit: false
       });
     });

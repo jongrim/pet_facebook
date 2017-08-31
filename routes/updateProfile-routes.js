@@ -23,11 +23,10 @@ module.exports = function (app, passport) {
                 {first_name: req.body.first_name,
                 last_species: req.body.last_name,
                 email: req.body.email,
-                // password: req.body.password,
                 about: req.body.aboutMe},
                 {where: {id: req.user.dataValues.id}}
             ).then(function () {
-                res.render('profile');
+                res.redirect('profile');
             });
         } else {
             res.render('index', { message: req.flash('loginMessage')[0] });

@@ -46,13 +46,22 @@ module.exports = function(app, passport) {
   app.post('/photos', upload.single('userFile'), function(req, res, next) {
     if (req.isAuthenticated()) {
       cloudinary.uploader.upload(req.file.path, result => {
-        Photo.create({
+        Photo.update(
+          {default_Pic: false},
+          {where: {
+            UserId: req.user.dataValues.id, 
+            PetId: req.body.pet
+          }}  
+      ).then( () => {
+          Photo.create({
           isPet: true,
           likes: 1,
           img_url: result.secure_url,
+          default_Pic: true,
           PetId: req.body.pet,
           UserId: req.user.dataValues.id
-        }).then(
+        } 
+          ).then(
           fs.unlink(req.file.path, function(error) {
             if (error) {
               throw error;
@@ -66,25 +75,31 @@ module.exports = function(app, passport) {
           })
         );
       });
+    });
     } else {
       res.render('index', { message: req.flash('loginMessage')[0] });
     }
   });
 
-  app.post('/profilePhotos', upload.single('userFile'), function(
-    req,
-    res,
-    next
-  ) {
+  app.post('/profilePhotos', upload.single('userFile'), function(req, res, next) {
     if (req.isAuthenticated()) {
       cloudinary.uploader.upload(req.file.path, result => {
-        Photo.create({
+        Photo.update(
+          {default_Pic: false},
+          {where: {
+            UserId: req.user.dataValues.id, 
+            isPet: false
+          }}  
+      ).then( () => {
+          Photo.create({
           isPet: false,
           likes: 1,
           img_url: result.secure_url,
+          default_Pic: true,
           PetId: null,
           UserId: req.user.dataValues.id
-        }).then(
+        } 
+          ).then(
           fs.unlink(req.file.path, function(error) {
             if (error) {
               throw error;
@@ -98,6 +113,7 @@ module.exports = function(app, passport) {
           })
         );
       });
+    });
     } else {
       res.render('index', { message: req.flash('loginMessage')[0] });
     }

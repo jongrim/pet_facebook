@@ -7,6 +7,7 @@ module.exports = function(app, passport) {
       include: [User]
     })
       .then(function(data) {
+        console.log("!!!!!!!!!!!!!!!!!!");
         console.log(data);
         res.render('feed', { Post: data, User: data[0].User });
       })
@@ -21,7 +22,7 @@ module.exports = function(app, passport) {
       likes: 1,
       PetID: 0,
       UserId: req.user.dataValues.id
-    }).then(function() {
+    }).then( () => {
       res.redirect('feed');
     });
   });

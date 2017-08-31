@@ -11,6 +11,9 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isUrl: true
       }
+    },
+    default_Pic: {
+      type: DataTypes.BOOLEAN,
     }
   });
 

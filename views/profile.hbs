@@ -2,21 +2,40 @@
 <div class="container">
   <div class="row">
 
-    {{!-- Sidebar --}} {{#if enableEdit}}
+    {{!-- Sidebar --}} 
     <div class="col-md-3 d-flex flex-column align-items-center">
       <div class="hidden-sm-down">
-        <img src="/images/1.jpg" alt="Profile photo" class="img-thumbnail">
+        {{#each Photo}}
+          {{#unless this.isPet}}
+            {{#if this.default_Pic}}
+              <img src={{this.img_url}} alt="Profile photo" class="img-thumbnail">
+            {{/if}}
+          {{/unless}}
+        {{/each}} 
       </div>
       <div class="card-text hidden-sm-down">
         {{user.first_name}} {{user.last_name}}
       </div>
-      <hr>
-      <div class="btn-group-vertical">
-        <a class="btn btn-primary" href="/pets">Add new pet</a>
-        <a class="btn btn-primary" href="/photos">Add photos</a>
+      <div class="card-text hidden-sm-down">
+        {{#unless user.about}}
+          Click Edit Profile to add an About Me Section 
+        {{else}}
+          {{user.about}}
+        {{/unless}}
+        {{#each Photo.dataValues}}
+            <option value={{this.id}}>{{this}}</option>
+          {{/each}}
       </div>
+      <hr>
+      {{#if enableEdit}}
+      <div class="btn-group-vertical">
+        <a class="btn btn-primary" href="/updateProfile">Edit Profile</a>
+        <a class="btn btn-primary" href="/pets">Add New Pet</a>
+        <a class="btn btn-primary" href="/photos">Edit/Add photos</a>
+      </div>
+      {{/if}}
     </div>
-    {{/if}}
+    
 
     <div class="col-6">
 
@@ -24,13 +43,16 @@
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Pets</h4>
           <div class="d-flex justify-content-around align-items-start mb-3">
-            {{#each Pet}}
-            <div class="card" style="width:33%">
-              {{!-- if pet photo --}}
-              <img src="/images/1.jpg" alt="" class="card-img-top">
-              <h5 class="card-title text-center mt-1">{{this.pet_name}}</h5>
-            </div>
-            {{/each}}
+            {{#each Photo}}
+              {{#if this.isPet}}
+                {{#if this.default_Pic}}
+                <div class="card" style="width:33%">
+                  <img src={{this.img_url}} alt="" class="card-img-top">
+                  <h5 class="card-title text-center mt-1">{{Pet}}</h5>
+                </div>
+                {{/if}}
+              {{/if}}
+            {{/each}}              
           </div>
         </div>
       </div>
@@ -39,13 +61,13 @@
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Photos</h4>
           <div class="d-flex justify-content-around align-items-start mb-3">
-
             {{#each Photo}}
-            <div class="card" style="width:33%">
-              {{!-- if pet photo --}}
-              <img src="{{this.img_url}}" alt="photo" class="card-img">
-            </div>
-            {{/each}}
+              {{#if this.isPet}}
+                <div class="card" style="width:33%">
+                  <img src={{this.img_url}} alt="" class="card-img-top">
+                </div>
+              {{/if}}
+            {{/each}} 
           </div>
         </div>
       </div>
