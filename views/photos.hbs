@@ -7,6 +7,7 @@
       <div class="card mb-3 bg-light">
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Pet Photos</h4>
+          <small class="text-muted">Select a pet, then click a photo to set its default photo</small>
           <div class="d-flex justify-content-around align-items-start mb-3">
             {{#each Photo}} {{#if this.isPet}}
             <form action="/profilePhotosPet?_method=PUT" method="POST" style="display: inline">
@@ -27,10 +28,10 @@
           {{/each}}
         </select>
               <div class="form-group">
-                <label for="photo-upload">Choose a file</label>
-                <input class="form-control" type="file" name="upload-photo">
+                <label for="userFile">Choose a file</label>
+                <input class="form-control" accept=".png, .jpg" type="file" name="userFile" id="petPhotoFile">
               </div>
-              <button class="btn btn-primary" type="submit">Upload</button>
+              <button class="btn btn-primary" type="submit" id="petPhotoUpload" disabled>Upload</button>
             </form>
           </div>
         </div>
@@ -39,6 +40,7 @@
       <div class="card mb-3 bg-light">
         <div class="card-block d-flex flex-column align-items-center">
           <h4 class="card-title mt-1">Profile Photos</h4>
+          <small class="text-muted">Click a photo to set it as your profile photo</small>
           <div class="d-flex justify-content-around align-items-start mb-3">
             {{#each Photo}} {{#unless this.isPet}}
             <form action="/profilePhotosUser?_method=PUT" method="POST">
@@ -53,9 +55,9 @@
               <form id="changePic" enctype="multipart/form-data" action="/profilePhotos" method="POST">
                 <div class="form-group">
                   <label for="userFile">Choose a file</label>
-                  <input class="form-control" type="file" name="userFile" />
+                  <input class="form-control" accept=".png, .jpg" type="file" name="userFile" id="userPhotoFile" />
                 </div>
-                <button class="btn btn-primary" type="submit">Upload</button>
+                <button class="btn btn-primary" type="submit" id="userPhotoUpload" disabled>Upload</button>
               </form>
             </div>
           </div>
